@@ -1,30 +1,25 @@
 # -*- coding: utf-8 -*-
 # @Author: longfengpili
-# @Date:   2024-04-11 18:26:47
+# @Date:   2024-04-12 11:15:17
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 11:36:32
+# @Last Modified time: 2024-04-12 11:36:18
 # @github: https://github.com/longfengpili
+
 
 from .base_api import BaseAPI
 
 
 class AdRevnueAPI(BaseAPI):
-    '''https://dash.applovin.com/documentation/mediation/reporting-api/max-ad-revenue'''
+    '''https://dash.applovin.com/documentation/mediation/reporting-api/user-ad-revenue'''
 
-    def __init__(self, apikey: str, resformat: str = 'json'):
-        self.resformat = resformat
-        self.not_zero = 1
+    def __init__(self, apikey: str):
+        self.aggregated = 'false'
         super(AdRevnueAPI, self).__init__(apikey)
 
     @property
     def url(self):
-        url = 'https://r.applovin.com/maxReport'
+        url = 'https://r.applovin.com/max/userAdRevenueReport'
         return url
-
-    @property
-    def bcolumns(self):
-        bcolumns = 'day,hour,store_id,package_name,application,platform,country,device_type,custom_network_name,ad_format,ad_unit_waterfall_name,has_idfa,max_ad_unit,max_ad_unit_id,max_ad_unit_test'  # noqa: E501
-        return bcolumns
 
     def columns(self, datatype: str = 'network'):
         bcolumns = self.bcolumns
@@ -54,8 +49,3 @@ class AdRevnueAPI(BaseAPI):
         }
         kwargs.update(params)
         return kwargs
-
-    def get_ad_revenue(self, start: str, end: str, datatype: str = 'network', **kwargs):
-        params = self.get_params(start, end, datatype, **kwargs)
-        res = self.request_api(self.url, params=params)
-        return res
