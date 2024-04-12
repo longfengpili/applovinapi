@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2024-04-11 18:38:57
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 16:09:43
+# @Last Modified time: 2024-04-12 16:25:58
 # @github: https://github.com/longfengpili
 
 import os
@@ -16,7 +16,7 @@ from applovin.apis import UserAdRevnueAPI
 # logging.config.dictConfig(LOGGING_CONFIG)
 
 
-class TestAdRevnue:
+class TestAUserAdRevnue:
 
     def setup_method(self, method):
         self.apikey = os.getenv('APIKEY')
