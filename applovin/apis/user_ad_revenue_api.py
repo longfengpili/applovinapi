@@ -2,9 +2,11 @@
 # @Author: longfengpili
 # @Date:   2024-04-12 11:15:17
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 12:09:20
+# @Last Modified time: 2024-04-12 15:01:50
 # @github: https://github.com/longfengpili
 
+
+from pathlib import Path
 
 from .base_api import BaseAPI
 
@@ -24,7 +26,7 @@ class UserAdRevnueAPI(BaseAPI):
     def columns(self):
         pass
 
-    def get_params(self, application: str, date: str, platform: str = 'android', **kwargs):
+    def get_params(self, date: str, application: str, platform: str = 'android', **kwargs):
         params = {
             'date': date,
             'application': application,
@@ -35,12 +37,15 @@ class UserAdRevnueAPI(BaseAPI):
         kwargs.update(params)
         return kwargs
 
-    def get_user_ad_info(self, application: str, date: str, **kwargs):
-        params = self.get_params(application, date, **kwargs)
+    def get_user_ad_info(self, date: str, application: str, platform: str = 'android', **kwargs):
+        params = self.get_params(date, application, platform, **kwargs)
         res = self.request_api(self.url, params=params)
         return res
 
-    def download_user_ad_info(self, url: str, dfile: str):
-        res = self.request_api(url, restype='content')
-        with open(dfile, 'wb') as f:
-            f.write(res)
+    def download_data(self, date: str, application: str, platform: str = 'android', dpath: str = None, **kwargs):
+        res = self.get_user_ad_info(date, application, platform, **kwargs)
+        url = res.get('ad_revenue_report_url')
+
+        dfile = f"{application}_{platform}_{date}.csv"
+        dfile = Path(dpath, dfile) if dpath else Path(dfile)
+        self.download_data_to_file(url, dfile)

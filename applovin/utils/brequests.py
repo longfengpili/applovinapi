@@ -2,8 +2,9 @@
 # @Author: longfengpili
 # @Date:   2023-07-17 17:12:49
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 12:10:29
+# @Last Modified time: 2024-04-12 15:01:28
 
+from pathlib import Path
 import requests
 
 import logging
@@ -30,3 +31,13 @@ class BRequests:
         except:  # noqa: E722
             result = response.text if restype == 'text' else response.content
         return result
+
+    def download_data_to_file(self, url: str, dfile: str):
+        res = self.request_api(url, restype='content')
+        dfile = Path(dfile)
+        dpath = dfile.resolve().parent
+        if not dpath.exists():
+            dpath.mkdir(parents=True)
+            
+        with dfile.open('wb') as f:
+            f.write(res)
