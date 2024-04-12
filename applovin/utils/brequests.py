@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2023-07-17 17:12:49
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-11 19:03:31
+# @Last Modified time: 2024-04-12 12:10:29
 
 import requests
 
@@ -15,7 +15,7 @@ class BRequests:
     def __init__(self):
         pass
 
-    def request_api(self, url: str, params: dict, retries: int = 3):
+    def request_api(self, url: str, params: dict = None, retries: int = 3, restype: str = 'text'):
         attempt = 0
         while attempt < retries:
             response = requests.get(url, params=params)
@@ -25,5 +25,8 @@ class BRequests:
             attempt += 1
             brequestlogger.error(f"[get] {url}, Attempt {attempt}, status_code: {response.status_code}")
 
-        result = response.json()
+        try:
+            result = response.json()
+        except:  # noqa: E722
+            result = response.text if restype == 'text' else response.content
         return result
