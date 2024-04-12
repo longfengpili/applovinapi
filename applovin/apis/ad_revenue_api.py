@@ -2,8 +2,11 @@
 # @Author: longfengpili
 # @Date:   2024-04-11 18:26:47
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 11:36:32
+# @Last Modified time: 2024-04-12 15:26:55
 # @github: https://github.com/longfengpili
+
+import json
+from pathlib import Path
 
 from .base_api import BaseAPI
 
@@ -59,3 +62,18 @@ class AdRevnueAPI(BaseAPI):
         params = self.get_params(start, end, datatype, **kwargs)
         res = self.request_api(self.url, params=params)
         return res
+
+    def download_data(self, start: str, end: str, datatype: str = 'network', dpath: str = None, **kwargs):
+        res = self.get_ad_revenue(start, end, datatype, **kwargs)
+        res = res.get('results')
+        res = '\n'.join([json.dumps(i, ensure_ascii=False) for i in res])
+
+        dfile = f"ad_revenue_{start}_{end}.csv"
+        dfile = Path(dpath, 'ad_revnue', dfile) if dpath else Path('ad_revnue', dfile)
+
+        dpath = dfile.resolve().parent
+        if not dpath.exists():
+            dpath.mkdir(parents=True)
+        
+        with dfile.open('w', encoding='utf-8') as f:
+            f.write(res)

@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2024-04-11 18:38:57
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 11:06:22
+# @Last Modified time: 2024-04-12 15:19:00
 # @github: https://github.com/longfengpili
 
 import os
@@ -32,3 +32,9 @@ class TestAdRevnue:
         arapi = AdRevnueAPI(apikey=self.apikey)
         res = arapi.get_ad_revenue(start, end, datatype=datatype)
         print(res.get('results')[0])
+
+    def test_d_ad_revenue(self):
+        start = '2024-04-08'
+        end = '2024-04-11'
+        arapi = AdRevnueAPI(apikey=self.apikey)
+        arapi.download_data(start, end, datatype='network', dpath='data')

@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2024-04-11 18:38:57
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 13:58:35
+# @Last Modified time: 2024-04-12 16:09:43
 # @github: https://github.com/longfengpili
 
 import os
@@ -28,7 +28,7 @@ class TestAdRevnue:
         date = '2024-04-08'
         application = 'com.st.dragoncubs.google'
         arapi = UserAdRevnueAPI(apikey=self.apikey)
-        res = arapi.get_user_ad_info(application, date)
+        res = arapi.get_user_ad_info(date, application)
         print(res)
 
     def test_duser_ad_revenue(self):
@@ -36,4 +36,4 @@ class TestAdRevnue:
         application = 'com.st.dragoncubs.google'
         platform = 'android'
         arapi = UserAdRevnueAPI(apikey=self.apikey)
-        arapi.download_data(date, application, platform, dpath='data/data')
+        arapi.download_data(date, application, platform, dpath='data')

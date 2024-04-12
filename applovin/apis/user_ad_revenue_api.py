@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2024-04-12 11:15:17
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 15:01:50
+# @Last Modified time: 2024-04-12 15:30:50
 # @github: https://github.com/longfengpili
 
 
@@ -47,5 +47,5 @@ class UserAdRevnueAPI(BaseAPI):
         url = res.get('ad_revenue_report_url')
 
         dfile = f"{application}_{platform}_{date}.csv"
-        dfile = Path(dpath, dfile) if dpath else Path(dfile)
-        self.download_data_to_file(url, dfile)
+        dfile = Path(dpath, 'user_ad_revenue', dfile) if dpath else Path('user_ad_revenue', dfile)
+        self.download_url_to_file(url, dfile)

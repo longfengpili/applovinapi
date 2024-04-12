@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2024-04-11 18:26:47
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 11:36:02
+# @Last Modified time: 2024-04-12 15:06:04
 # @github: https://github.com/longfengpili
 
 from abc import ABCMeta, abstractmethod
@@ -27,4 +27,8 @@ class BaseAPI(BRequests, metaclass=ABCMeta):
 
     @abstractmethod
     def get_params(self):
+        pass
+
+    @abstractmethod
+    def download_data(self):
         pass

@@ -2,7 +2,7 @@
 # @Author: longfengpili
 # @Date:   2023-07-17 17:12:49
 # @Last Modified by:   longfengpili
-# @Last Modified time: 2024-04-12 15:01:28
+# @Last Modified time: 2024-04-12 15:28:06
 
 from pathlib import Path
 import requests
@@ -32,7 +32,7 @@ class BRequests:
             result = response.text if restype == 'text' else response.content
         return result
 
-    def download_data_to_file(self, url: str, dfile: str):
+    def download_url_to_file(self, url: str, dfile: str):
         res = self.request_api(url, restype='content')
         dfile = Path(dfile)
         dpath = dfile.resolve().parent
